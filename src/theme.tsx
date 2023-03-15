@@ -9,8 +9,15 @@ export const darkTheme = createTheme({
       dark: "#d32f2f",
       contrastText: "#ffffff",
     },
+    secondary: {
+      main: "#e97b73",
+      light: "#e59898",
+      dark: "#b34848",
+      contrastText: "#ffffff",
+    },
     background: {
-      default: "#555555",
+      default: "rgb(47, 52, 55)",
+      paper: "#000000",
     },
   },
 });
