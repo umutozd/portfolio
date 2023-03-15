@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+import { Box } from "@mui/material";
+import { SxProps, Theme, ThemeProvider } from "@mui/material/styles";
+import "./App.css";
+import { NavigationBar } from "./components/navigationBar";
+import { ContactPage } from "./pages/contact/contact";
+import { ProfilePage } from "./pages/profile/profile";
+import { ProjectsPage } from "./pages/projects/projects";
+import { AppContext, AppState } from "./state";
+import { darkTheme } from "./theme";
+
+export default function App() {
+  const [pageTabIndex, setPageTabIndex] = React.useState(0);
+  const appState = {
+    pageTabIndex: pageTabIndex,
+    setPageTabIndex: setPageTabIndex,
+  } as AppState;
+
+  const renderPage = () => {
+    switch (appState.pageTabIndex) {
+      case 0:
+        return <ProfilePage />;
+
+      case 1:
+        return <ProjectsPage />;
+
+      case 2:
+        return <ContactPage />;
+
+      default:
+        appState.setPageTabIndex(0);
+        return <ProfilePage />;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <AppContext.Provider value={appState}>
+        <div className="App">
+          <NavigationBar />
+          <Box sx={styles.root}>{renderPage()}</Box>
+        </div>
+      </AppContext.Provider>
+    </ThemeProvider>
   );
 }
 
-export default App;
+type StyleKeys = "root";
+const styles: Record<StyleKeys, SxProps<Theme>> = {
+  root: {
+    backgroundColor: (theme: Theme) => theme.palette.background.default,
+    height: "100%",
+    color: "#ffffff",
+    marginTop: 8.0,
+  },
+};
