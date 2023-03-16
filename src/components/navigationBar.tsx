@@ -13,7 +13,7 @@ export function NavigationBar(props: NavigationBarProps) {
 
   return (
     <Box>
-      <AppBar position="absolute">
+      <AppBar position="fixed" sx={styles.appbar}>
         <Toolbar sx={styles.toolbar}>
           <Box sx={{ width: "40%" }}>
             <Tabs
@@ -21,6 +21,8 @@ export function NavigationBar(props: NavigationBarProps) {
               onChange={onTabChange}
               centered
               variant="fullWidth"
+              textColor="primary"
+              indicatorColor="primary"
             >
               <Tab label="Profile" sx={styles.tab} />
               <Tab label="Projects" sx={styles.tab} />
@@ -33,9 +35,13 @@ export function NavigationBar(props: NavigationBarProps) {
   );
 }
 
-type StyleKeys = "toolbar" | "tab";
+type StyleKeys = "appbar" | "toolbar" | "tab";
 const styles: Record<StyleKeys, SxProps<Theme>> = {
+  appbar: {
+    opacity: 0.9,
+  },
   toolbar: {
+    backgroundColor: "#050505",
     justifyContent: "center",
     alignItems: "center",
   },
